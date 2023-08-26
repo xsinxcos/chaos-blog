@@ -1,0 +1,53 @@
+server:
+  port: 7777
+spring:
+  main:
+    allow-circular-references: true
+  # 数据库信息
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    文件上传
+  servlet:
+    multipart:
+      max-file-size: 2MB
+      max-request-size: 5MB
+  redis:
+    database:
+    host:
+    port:
+    password:
+#    jedis:
+#      pool:
+#        #最大连接数
+#        max-active: 8
+#        #最大阻塞等待时间(负数表示没限制)
+#        max-wait: -1
+#        #最大空闲
+#        max-idle: 8
+#        #最小空闲
+#        min-idle: 0
+#        #连接超时时间
+#        timeout: 10000
+#    cache:
+#      redis:
+#        time-to-live: 360000000
+mybatis-plus:
+  configuration:
+    # 日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+      id-type: auto
+
+oss:
+  accessKeyId:
+  accessKeySecret:
+  endpoint :
+  bucketName :
+
