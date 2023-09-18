@@ -7,6 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="chaos-blog" />
+        <module name="chaos-admin" />
+        <module name="chaos-framework" />
       </profile>
     </annotationProcessing>
   </component>

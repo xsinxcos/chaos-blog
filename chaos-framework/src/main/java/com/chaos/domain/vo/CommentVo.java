@@ -21,7 +21,7 @@ public class CommentVo {
     private String content;
     //所回复的目标评论的userid
     private Long toCommentUserId;
-    private String toCommentUserName;
+    private String toCommentNickname;
     //回复目标评论id
     private Long toCommentId;
 
@@ -29,7 +29,7 @@ public class CommentVo {
 
     private Date createTime;
 
-    private String username;
+    private String nickname;
 
     private List<CommentVo> children;
 

@@ -4,6 +4,8 @@ import com.chaos.domain.entity.LoginUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Objects;
+
 /**
  * @Author 三更  B站： https://space.bilibili.com/663528522
  */
@@ -15,7 +17,9 @@ public class SecurityUtils
      **/
     public static LoginUser getLoginUser()
     {
-        return (LoginUser) getAuthentication().getPrincipal();
+        if(!Objects.isNull(getAuthentication()))
+            return (LoginUser) getAuthentication().getPrincipal();
+        return null;
     }
 
     /**
@@ -26,11 +30,17 @@ public class SecurityUtils
     }
 
     public static Boolean isAdmin(){
-        Long id = getLoginUser().getUser().getId();
-        return id != null && 1L == id;
+        if(!Objects.isNull(getLoginUser())) {
+            Long id = getLoginUser().getUser().getId();
+            return id != null && 1L == id;
+        }
+        return false;
     }
 
     public static Long getUserId() {
-        return getLoginUser().getUser().getId();
+        if(!Objects.isNull(getLoginUser())) {
+            return getLoginUser().getUser().getId();
+        }
+        return null;
     }
 }

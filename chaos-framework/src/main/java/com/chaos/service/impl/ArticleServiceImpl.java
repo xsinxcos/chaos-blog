@@ -23,10 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Queue;
+import java.util.*;
 
 @Service
 public class ArticleServiceImpl extends ServiceImpl<ArticleMapper ,Article> implements ArticleService {
@@ -36,6 +33,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper ,Article> impl
     private CategoryService categoryService;
     @Autowired
     private ArticleTagService articleTagService;
+
     @Override
     public ResponseResult hotArticleList() {
 //          需要查询浏览量最高的前10篇文章的信息。要求展示文章标题和浏览量。把能让用户自己点击跳转到具体的文章详情进行浏览。
@@ -123,6 +121,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper ,Article> impl
             articleTags.add(new ArticleTag(articleId ,TagId));
         }
         articleTagService.saveBatch(articleTags);
+        //存储进redis
+        Map<String, Integer> map = redisCache.getCacheMap("article:viewCount");
+        map.put(articleId.toString() ,SystemConstants.ARTICLE_INITIAL_VIEWCOUNT);
+        redisCache.setCacheMap( "article:viewCount",map);
         return ResponseResult.okResult();
     }
 

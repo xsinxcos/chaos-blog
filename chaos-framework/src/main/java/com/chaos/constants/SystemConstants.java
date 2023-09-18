@@ -43,4 +43,5 @@ public class SystemConstants
     public static final String CATEGORY_NORMAL = "0";
     public static final String CATEGORY_DELETE = "1";
     public static final String LINK_DELETE = "1";
+    public static final Integer ARTICLE_INITIAL_VIEWCOUNT = 0;
 }

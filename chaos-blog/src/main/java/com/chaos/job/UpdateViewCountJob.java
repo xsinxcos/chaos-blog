@@ -1,9 +1,11 @@
 package com.chaos.job;
 
+import com.chaos.chaosBlogApplication;
 import com.chaos.domain.entity.Article;
 import com.chaos.service.ArticleService;
 import com.chaos.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +19,7 @@ public class UpdateViewCountJob {
     private RedisCache redisCache;
     @Autowired
     private ArticleService articleService;
-    @Scheduled(cron = "0/59 0/10 * * * ?")
+    @Scheduled(cron = "0 0/10 * * * ? ")
     public void updateViewCount(){
         //获取redis中的浏览量
         Map<String , Integer> viewCountMap = redisCache.getCacheMap("article:viewCount");

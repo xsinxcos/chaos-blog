@@ -17,5 +17,7 @@ public class UpdateUserDto {
     private String sex;
     private String status;
     private String userName;
+
+    private String phonenumber;
     private List<Long> roleIds;
 }

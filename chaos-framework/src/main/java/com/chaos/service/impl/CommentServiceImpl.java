@@ -19,7 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.jws.soap.SOAPBinding;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 评论表(Comment)表服务实现类
@@ -71,13 +74,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         //遍历Vo集合
         for(CommentVo commentVo : commentVos) {
             User user = userService.getById(commentVo.getCreateBy());
+            if(Objects.isNull(user)) continue;
             String nickName = user.getNickName();
-            commentVo.setUsername(nickName);
+            commentVo.setNickname(nickName);
             commentVo.setAvatar(user.getAvatar());
             //如果toCommentUserId不为-1才进行查询
             if (commentVo.getToCommentUserId() != -1) {
-                String toCommentUserName = userService.getById(commentVo.getToCommentUserId()).getUserName();
-                commentVo.setToCommentUserName(toCommentUserName);
+                User toCommentUser = userService.getById(commentVo.getToCommentUserId());
+                if(Objects.isNull(toCommentUser)) continue;
+                String toCommentNickName = toCommentUser.getNickName();
+                commentVo.setToCommentNickname(toCommentNickName);
             }
         }
         //通过create
